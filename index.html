@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacje o połączeniu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .info-section {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .info-section h2 {
+            margin-top: 0;
+            color: #3498db;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .info-item {
+            margin-bottom: 8px;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 250px;
+        }
+        .info-value {
+            display: inline-block;
+        }
+        @media (max-width: 600px) {
+            .info-label {
+                display: block;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Informacje o Twoim połączeniu</h1>
+    
+    <div class="info-section">
+        <h2>Informacje o przeglądarce</h2>
+        <div class="info-item">
+            <span class="info-label">User Agent:</span>
+            <span class="info-value" id="userAgent"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Język przeglądarki:</span>
+            <span class="info-value" id="browserLanguage"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Wersja JavaScript:</span>
+            <span class="info-value" id="jsVersion"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Cookies włączone:</span>
+            <span class="info-value" id="cookiesEnabled"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Maksymalna liczba punktów dotykowych:</span>
+            <span class="info-value" id="maxTouchPoints"></span>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h2>Informacje o ekranie</h2>
+        <div class="info-item">
+            <span class="info-label">Szerokość ekranu:</span>
+            <span class="info-value" id="screenWidth"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Wysokość ekranu:</span>
+            <span class="info-value" id="screenHeight"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Głębia kolorów:</span>
+            <span class="info-value" id="colorDepth"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Rozdzielczość pikseli:</span>
+            <span class="info-value" id="pixelRatio"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Orientacja ekranu:</span>
+            <span class="info-value" id="screenOrientation"></span>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h2>Informacje o oknie przeglądarki</h2>
+        <div class="info-item">
+            <span class="info-label">Wewnętrzna szerokość okna:</span>
+            <span class="info-value" id="innerWidth"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Wewnętrzna wysokość okna:</span>
+            <span class="info-value" id="innerHeight"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Zewnętrzna szerokość okna:</span>
+            <span class="info-value" id="outerWidth"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Zewnętrzna wysokość okna:</span>
+            <span class="info-value" id="outerHeight"></span>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h2>Informacje o lokalizacji</h2>
+        <div class="info-item">
+            <span class="info-label">Strefa czasowa:</span>
+            <span class="info-value" id="timezone"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Data i czas lokalne:</span>
+            <span class="info-value" id="localTime"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Geolokalizacja:</span>
+            <span class="info-value" id="geolocation"></span>
+        </div>
+        <button onclick="requestGeolocation()">Pobierz dokładną lokalizację</button>
+    </div>
+    
+    <div class="info-section">
+        <h2>Informacje o połączeniu sieciowym</h2>
+        <div class="info-item">
+            <span class="info-label">Online:</span>
+            <span class="info-value" id="onlineStatus"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Typ połączenia:</span>
+            <span class="info-value" id="connectionType"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Prędkość połączenia:</span>
+            <span class="info-value" id="connectionSpeed"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Pamięć podręczna:</span>
+            <span class="info-value" id="deviceMemory"></span>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h2>Informacje o systemie</h2>
+        <div class="info-item">
+            <span class="info-label">System operacyjny:</span>
+            <span class="info-value" id="operatingSystem"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Architektura CPU:</span>
+            <span class="info-value" id="cpuArchitecture"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Liczba rdzeni CPU:</span>
+            <span class="info-value" id="cpuCores"></span>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h2>Inne informacje</h2>
+        <div class="info-item">
+            <span class="info-label">Adres IP:</span>
+            <span class="info-value" id="ipAddress">Pobieranie...</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Do Not Track:</span>
+            <span class="info-value" id="doNotTrack"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">WebGL:</span>
+            <span class="info-value" id="webglInfo"></span>
+        </div>
+    </div>
+
+    <script>
+        // Podstawowe informacje
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+        document.getElementById('browserLanguage').textContent = navigator.language || navigator.userLanguage;
+        document.getElementById('jsVersion').textContent = '1.' + (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1 ? 
+            '8' : navigator.userAgent.toLowerCase().indexOf('chrome') !== -1 ? 
+            '7' : navigator.userAgent.toLowerCase().indexOf('safari') !== -1 ? 
+            '6' : '5');
+        document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Tak' : 'Nie';
+        document.getElementById('maxTouchPoints').textContent = navigator.maxTouchPoints || 'Nie dotyczy';
+        
+        // Informacje o ekranie
+        document.getElementById('screenWidth').textContent = screen.width + 'px';
+        document.getElementById('screenHeight').textContent = screen.height + 'px';
+        document.getElementById('colorDepth').textContent = screen.colorDepth + ' bitów';
+        document.getElementById('pixelRatio').textContent = window.devicePixelRatio || 'Nieznana';
+        document.getElementById('screenOrientation').textContent = screen.orientation ? 
+            screen.orientation.type : (screen.width > screen.height ? 'Pozioma' : 'Pionowa');
+        
+        // Informacje o oknie
+        document.getElementById('innerWidth').textContent = window.innerWidth + 'px';
+        document.getElementById('innerHeight').textContent = window.innerHeight + 'px';
+        document.getElementById('outerWidth').textContent = window.outerWidth + 'px';
+        document.getElementById('outerHeight').textContent = window.outerHeight + 'px';
+        
+        // Informacje o lokalizacji
+        document.getElementById('timezone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('localTime').textContent = new Date().toString();
+        document.getElementById('geolocation').textContent = 'Kliknij przycisk, aby sprawdzić';
+        
+        // Informacje o połączeniu
+        document.getElementById('onlineStatus').textContent = navigator.onLine ? 'Online' : 'Offline';
+        
+        if ('connection' in navigator) {
+            const connection = navigator.connection;
+            document.getElementById('connectionType').textContent = connection.type || connection.effectiveType || 'Nieznany';
+            document.getElementById('connectionSpeed').textContent = connection.downlink ? connection.downlink + ' Mbps' : 'Nieznana';
+            document.getElementById('deviceMemory').textContent = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Nieznana';
+        } else {
+            document.getElementById('connectionType').textContent = 'Nieobsługiwane';
+            document.getElementById('connectionSpeed').textContent = 'Nieobsługiwane';
+            document.getElementById('deviceMemory').textContent = 'Nieobsługiwane';
+        }
+        
+        // Informacje o systemie
+        const userAgent = navigator.userAgent.toLowerCase();
+        let os = 'Nieznany';
+        if (userAgent.indexOf('win') !== -1) os = 'Windows';
+        if (userAgent.indexOf('mac') !== -1) os = 'macOS';
+        if (userAgent.indexOf('linux') !== -1) os = 'Linux';
+        if (userAgent.indexOf('android') !== -1) os = 'Android';
+        if (userAgent.indexOf('iphone') !== -1 || userAgent.indexOf('ipad') !== -1) os = 'iOS';
+        document.getElementById('operatingSystem').textContent = os;
+        
+        document.getElementById('cpuArchitecture').textContent = navigator.cpuClass || navigator.oscpu || 'Nieznana';
+        document.getElementById('cpuCores').textContent = navigator.hardwareConcurrency || 'Nieznana';
+        
+        // Inne informacje
+        document.getElementById('doNotTrack').textContent = navigator.doNotTrack || 'Nie ustawiono';
+        
+        // Pobierz WebGL info
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+            if (debugInfo) {
+                const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                document.getElementById('webglInfo').textContent = renderer;
+            } else {
+                document.getElementById('webglInfo').textContent = 'WebGL dostępne, ale brak szczegółów';
+            }
+        } else {
+            document.getElementById('webglInfo').textContent = 'WebGL niedostępne';
+        }
+        
+        // Pobierz adres IP
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipAddress').textContent = data.ip;
+            })
+            .catch(() => {
+                document.getElementById('ipAddress').textContent = 'Nie można pobrać';
+            });
+        
+        // Funkcja do pobierania geolokalizacji
+        function requestGeolocation() {
+            if ('geolocation' in navigator) {
+                document.getElementById('geolocation').textContent = 'Pobieranie...';
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        document.getElementById('geolocation').textContent = `Szerokość: ${lat.toFixed(4)}, Długość: ${lon.toFixed(4)}`;
+                    },
+                    error => {
+                        let errorMessage = 'Błąd: ';
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage += 'Odmowa dostępu';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage += 'Brak danych o lokalizacji';
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage += 'Przekroczono czas oczekiwania';
+                                break;
+                            default:
+                                errorMessage += 'Nieznany błąd';
+                        }
+                        document.getElementById('geolocation').textContent = errorMessage;
+                    }
+                );
+            } else {
+                document.getElementById('geolocation').textContent = 'Geolokalizacja nie jest obsługiwana';
+            }
+        }
+        
+        // Aktualizuj czas co sekundę
+        setInterval(() => {
+            document.getElementById('localTime').textContent = new Date().toString();
+        }, 1000);
+    </script>
+</body>
+</html>
