@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informacje o połączeniu</title>
+    <title>Pełne informacje o połączeniu</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,307 +11,347 @@
             margin: 0;
             padding: 20px;
             color: #333;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         h1 {
             color: #2c3e50;
             text-align: center;
+            margin-bottom: 30px;
         }
         .info-section {
             background-color: #f9f9f9;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
         .info-section h2 {
             margin-top: 0;
             color: #3498db;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 12px;
         }
         .info-item {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
         }
         .info-label {
             font-weight: bold;
             display: inline-block;
-            width: 250px;
+            width: 300px;
+            color: #2c3e50;
         }
         .info-value {
             display: inline-block;
+            color: #16a085;
+            word-break: break-all;
         }
-        @media (max-width: 600px) {
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        @media (max-width: 768px) {
             .info-label {
                 display: block;
                 width: auto;
+                margin-bottom: 3px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Informacje o Twoim połączeniu</h1>
+    <h1>Kompletne informacje o Twoim połączeniu i urządzeniu</h1>
     
+    <!-- Rozszerzone sekcje informacji -->
     <div class="info-section">
-        <h2>Informacje o przeglądarce</h2>
+        <h2>Zaawansowane informacje o przeglądarce</h2>
         <div class="info-item">
-            <span class="info-label">User Agent:</span>
-            <span class="info-value" id="userAgent"></span>
+            <span class="info-label">Pełny User Agent:</span>
+            <span class="info-value" id="fullUserAgent"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Język przeglądarki:</span>
-            <span class="info-value" id="browserLanguage"></span>
+            <span class="info-label">Platforma:</span>
+            <span class="info-value" id="platform"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Wersja JavaScript:</span>
-            <span class="info-value" id="jsVersion"></span>
+            <span class="info-label">Wersja przeglądarki:</span>
+            <span class="info-value" id="browserVersion"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Cookies włączone:</span>
-            <span class="info-value" id="cookiesEnabled"></span>
+            <span class="info-label">Wszystkie języki:</span>
+            <span class="info-value" id="languages"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Maksymalna liczba punktów dotykowych:</span>
-            <span class="info-value" id="maxTouchPoints"></span>
+            <span class="info-label">Web Worker:</span>
+            <span class="info-value" id="webWorker"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Service Worker:</span>
+            <span class="info-value" id="serviceWorker"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">WebAssembly:</span>
+            <span class="info-value" id="webAssembly"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">WebRTC:</span>
+            <span class="info-value" id="webRTC"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">WebSocket:</span>
+            <span class="info-value" id="webSocket"></span>
         </div>
     </div>
-    
+
     <div class="info-section">
-        <h2>Informacje o ekranie</h2>
+        <h2>Szczegółowe informacje o ekranie</h2>
         <div class="info-item">
-            <span class="info-label">Szerokość ekranu:</span>
-            <span class="info-value" id="screenWidth"></span>
+            <span class="info-label">Available width:</span>
+            <span class="info-value" id="availWidth"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Wysokość ekranu:</span>
-            <span class="info-value" id="screenHeight"></span>
+            <span class="info-label">Available height:</span>
+            <span class="info-value" id="availHeight"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Głębia kolorów:</span>
-            <span class="info-value" id="colorDepth"></span>
+            <span class="info-label">Orientation angle:</span>
+            <span class="info-value" id="orientationAngle"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Rozdzielczość pikseli:</span>
-            <span class="info-value" id="pixelRatio"></span>
+            <span class="info-label">Color gamut:</span>
+            <span class="info-value" id="colorGamut"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Orientacja ekranu:</span>
-            <span class="info-value" id="screenOrientation"></span>
+            <span class="info-label">HDR:</span>
+            <span class="info-value" id="hdr"></span>
         </div>
     </div>
-    
+
     <div class="info-section">
-        <h2>Informacje o oknie przeglądarki</h2>
+        <h2>Informacje o baterii (jeśli dostępne)</h2>
         <div class="info-item">
-            <span class="info-label">Wewnętrzna szerokość okna:</span>
-            <span class="info-value" id="innerWidth"></span>
+            <span class="info-label">Poziom baterii:</span>
+            <span class="info-value" id="batteryLevel"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Wewnętrzna wysokość okna:</span>
-            <span class="info-value" id="innerHeight"></span>
+            <span class="info-label">Ładowanie:</span>
+            <span class="info-value" id="batteryCharging"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Zewnętrzna szerokość okna:</span>
-            <span class="info-value" id="outerWidth"></span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Zewnętrzna wysokość okna:</span>
-            <span class="info-value" id="outerHeight"></span>
+            <span class="info-label">Czas do rozładowania:</span>
+            <span class="info-value" id="batteryDischargingTime"></span>
         </div>
     </div>
-    
+
     <div class="info-section">
-        <h2>Informacje o lokalizacji</h2>
+        <h2>Media Capabilities</h2>
         <div class="info-item">
-            <span class="info-label">Strefa czasowa:</span>
-            <span class="info-value" id="timezone"></span>
+            <span class="info-label">Audio:</span>
+            <span class="info-value" id="audioCapabilities"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Data i czas lokalne:</span>
-            <span class="info-value" id="localTime"></span>
+            <span class="info-label">Video:</span>
+            <span class="info-value" id="videoCapabilities"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Geolokalizacja:</span>
-            <span class="info-value" id="geolocation"></span>
-        </div>
-        <button onclick="requestGeolocation()">Pobierz dokładną lokalizację</button>
-    </div>
-    
-    <div class="info-section">
-        <h2>Informacje o połączeniu sieciowym</h2>
-        <div class="info-item">
-            <span class="info-label">Online:</span>
-            <span class="info-value" id="onlineStatus"></span>
+            <span class="info-label">Ilość kamer:</span>
+            <span class="info-value" id="cameraCount"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Typ połączenia:</span>
-            <span class="info-value" id="connectionType"></span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Prędkość połączenia:</span>
-            <span class="info-value" id="connectionSpeed"></span>
-        </div>
-        <div class="info-item">
-            <span class="info-label">Pamięć podręczna:</span>
-            <span class="info-value" id="deviceMemory"></span>
+            <span class="info-label">Ilość mikrofonów:</span>
+            <span class="info-value" id="microphoneCount"></span>
         </div>
     </div>
-    
+
     <div class="info-section">
-        <h2>Informacje o systemie</h2>
+        <h2>Storage</h2>
         <div class="info-item">
-            <span class="info-label">System operacyjny:</span>
-            <span class="info-value" id="operatingSystem"></span>
+            <span class="info-label">LocalStorage:</span>
+            <span class="info-value" id="localStorage"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Architektura CPU:</span>
-            <span class="info-value" id="cpuArchitecture"></span>
+            <span class="info-label">SessionStorage:</span>
+            <span class="info-value" id="sessionStorage"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Liczba rdzeni CPU:</span>
-            <span class="info-value" id="cpuCores"></span>
+            <span class="info-label">IndexedDB:</span>
+            <span class="info-value" id="indexedDB"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">WebSQL:</span>
+            <span class="info-value" id="webSQL"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Cache API:</span>
+            <span class="info-value" id="cacheAPI"></span>
+        </div>
+        <button class="btn" onclick="checkStorageEstimate()">Sprawdź dostępne miejsce</button>
+        <div class="info-item" id="storageEstimateItem" style="display:none;">
+            <span class="info-label">Dostępne miejsce:</span>
+            <span class="info-value" id="storageEstimate"></span>
         </div>
     </div>
-    
+
     <div class="info-section">
-        <h2>Inne informacje</h2>
+        <h2>Zaawansowane funkcje</h2>
         <div class="info-item">
-            <span class="info-label">Adres IP:</span>
-            <span class="info-value" id="ipAddress">Pobieranie...</span>
+            <span class="info-label">Wake Lock:</span>
+            <span class="info-value" id="wakeLock"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">Do Not Track:</span>
-            <span class="info-value" id="doNotTrack"></span>
+            <span class="info-label">Vibration API:</span>
+            <span class="info-value" id="vibrationAPI"></span>
         </div>
         <div class="info-item">
-            <span class="info-label">WebGL:</span>
-            <span class="info-value" id="webglInfo"></span>
+            <span class="info-label">Bluetooth:</span>
+            <span class="info-value" id="bluetooth"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">USB:</span>
+            <span class="info-value" id="usb"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">NFC:</span>
+            <span class="info-value" id="nfc"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Gamepad API:</span>
+            <span class="info-value" id="gamepad"></span>
         </div>
     </div>
 
     <script>
-        // Podstawowe informacje
-        document.getElementById('userAgent').textContent = navigator.userAgent;
-        document.getElementById('browserLanguage').textContent = navigator.language || navigator.userLanguage;
-        document.getElementById('jsVersion').textContent = '1.' + (navigator.userAgent.toLowerCase().indexOf('firefox') !== -1 ? 
-            '8' : navigator.userAgent.toLowerCase().indexOf('chrome') !== -1 ? 
-            '7' : navigator.userAgent.toLowerCase().indexOf('safari') !== -1 ? 
-            '6' : '5');
-        document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? 'Tak' : 'Nie';
-        document.getElementById('maxTouchPoints').textContent = navigator.maxTouchPoints || 'Nie dotyczy';
+        // Rozszerzone informacje o przeglądarce
+        document.getElementById('fullUserAgent').textContent = navigator.userAgent;
+        document.getElementById('platform').textContent = navigator.platform;
+        document.getElementById('languages').textContent = navigator.languages ? navigator.languages.join(', ') : navigator.language;
         
-        // Informacje o ekranie
-        document.getElementById('screenWidth').textContent = screen.width + 'px';
-        document.getElementById('screenHeight').textContent = screen.height + 'px';
-        document.getElementById('colorDepth').textContent = screen.colorDepth + ' bitów';
-        document.getElementById('pixelRatio').textContent = window.devicePixelRatio || 'Nieznana';
-        document.getElementById('screenOrientation').textContent = screen.orientation ? 
-            screen.orientation.type : (screen.width > screen.height ? 'Pozioma' : 'Pionowa');
+        // Wersja przeglądarki
+        const ua = navigator.userAgent;
+        let browserVersion = "Nieznana";
+        if (ua.includes("Firefox/")) browserVersion = "Firefox " + ua.split("Firefox/")[1].split(" ")[0];
+        else if (ua.includes("Chrome/")) browserVersion = "Chrome " + ua.split("Chrome/")[1].split(" ")[0];
+        else if (ua.includes("Safari/")) browserVersion = "Safari " + ua.split("Version/")[1]?.split(" ")[0] || "Nieznana";
+        else if (ua.includes("Edg/")) browserVersion = "Edge " + ua.split("Edg/")[1].split(" ")[0];
+        document.getElementById('browserVersion').textContent = browserVersion;
         
-        // Informacje o oknie
-        document.getElementById('innerWidth').textContent = window.innerWidth + 'px';
-        document.getElementById('innerHeight').textContent = window.innerHeight + 'px';
-        document.getElementById('outerWidth').textContent = window.outerWidth + 'px';
-        document.getElementById('outerHeight').textContent = window.outerHeight + 'px';
+        // Zaawansowane funkcje
+        document.getElementById('webWorker').textContent = typeof(Worker) !== "undefined" ? "Dostępne" : "Niedostępne";
+        document.getElementById('serviceWorker').textContent = 'serviceWorker' in navigator ? "Dostępne" : "Niedostępne";
+        document.getElementById('webAssembly').textContent = typeof(WebAssembly) === "object" ? "Dostępne" : "Niedostępne";
+        document.getElementById('webRTC').textContent = !!window.RTCPeerConnection ? "Dostępne" : "Niedostępne";
+        document.getElementById('webSocket').textContent = !!window.WebSocket ? "Dostępne" : "Niedostępne";
         
-        // Informacje o lokalizacji
-        document.getElementById('timezone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById('localTime').textContent = new Date().toString();
-        document.getElementById('geolocation').textContent = 'Kliknij przycisk, aby sprawdzić';
+        // Rozszerzone informacje o ekranie
+        document.getElementById('availWidth').textContent = screen.availWidth + 'px';
+        document.getElementById('availHeight').textContent = screen.availHeight + 'px';
+        document.getElementById('orientationAngle').textContent = screen.orientation ? screen.orientation.angle + '°' : 'Nieznany';
         
-        // Informacje o połączeniu
-        document.getElementById('onlineStatus').textContent = navigator.onLine ? 'Online' : 'Offline';
-        
-        if ('connection' in navigator) {
-            const connection = navigator.connection;
-            document.getElementById('connectionType').textContent = connection.type || connection.effectiveType || 'Nieznany';
-            document.getElementById('connectionSpeed').textContent = connection.downlink ? connection.downlink + ' Mbps' : 'Nieznana';
-            document.getElementById('deviceMemory').textContent = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Nieznana';
+        // Color gamut i HDR
+        if (window.matchMedia) {
+            const colorGamut = window.matchMedia('(color-gamut: p3)').matches ? 'P3' : 
+                             window.matchMedia('(color-gamut: rec2020)').matches ? 'Rec. 2020' : 'sRGB';
+            document.getElementById('colorGamut').textContent = colorGamut;
+            
+            const hdr = window.matchMedia('(dynamic-range: high)').matches ? 'Tak' : 'Nie';
+            document.getElementById('hdr').textContent = hdr;
         } else {
-            document.getElementById('connectionType').textContent = 'Nieobsługiwane';
-            document.getElementById('connectionSpeed').textContent = 'Nieobsługiwane';
-            document.getElementById('deviceMemory').textContent = 'Nieobsługiwane';
+            document.getElementById('colorGamut').textContent = 'Nieobsługiwane';
+            document.getElementById('hdr').textContent = 'Nieobsługiwane';
         }
         
-        // Informacje o systemie
-        const userAgent = navigator.userAgent.toLowerCase();
-        let os = 'Nieznany';
-        if (userAgent.indexOf('win') !== -1) os = 'Windows';
-        if (userAgent.indexOf('mac') !== -1) os = 'macOS';
-        if (userAgent.indexOf('linux') !== -1) os = 'Linux';
-        if (userAgent.indexOf('android') !== -1) os = 'Android';
-        if (userAgent.indexOf('iphone') !== -1 || userAgent.indexOf('ipad') !== -1) os = 'iOS';
-        document.getElementById('operatingSystem').textContent = os;
-        
-        document.getElementById('cpuArchitecture').textContent = navigator.cpuClass || navigator.oscpu || 'Nieznana';
-        document.getElementById('cpuCores').textContent = navigator.hardwareConcurrency || 'Nieznana';
-        
-        // Inne informacje
-        document.getElementById('doNotTrack').textContent = navigator.doNotTrack || 'Nie ustawiono';
-        
-        // Pobierz WebGL info
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        if (gl) {
-            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-            if (debugInfo) {
-                const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                document.getElementById('webglInfo').textContent = renderer;
-            } else {
-                document.getElementById('webglInfo').textContent = 'WebGL dostępne, ale brak szczegółów';
-            }
-        } else {
-            document.getElementById('webglInfo').textContent = 'WebGL niedostępne';
-        }
-        
-        // Pobierz adres IP
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('ipAddress').textContent = data.ip;
-            })
-            .catch(() => {
-                document.getElementById('ipAddress').textContent = 'Nie można pobrać';
+        // Bateria (starsze API)
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(battery => {
+                document.getElementById('batteryLevel').textContent = Math.round(battery.level * 100) + '%';
+                document.getElementById('batteryCharging').textContent = battery.charging ? 'Tak' : 'Nie';
+                document.getElementById('batteryDischargingTime').textContent = 
+                    battery.dischargingTime === Infinity ? 'Nieskończoność' : battery.dischargingTime + ' sekund';
             });
+        } else {
+            document.getElementById('batteryLevel').textContent = 'API niedostępne';
+            document.getElementById('batteryCharging').textContent = 'API niedostępne';
+            document.getElementById('batteryDischargingTime').textContent = 'API niedostępne';
+        }
         
-        // Funkcja do pobierania geolokalizacji
-        function requestGeolocation() {
-            if ('geolocation' in navigator) {
-                document.getElementById('geolocation').textContent = 'Pobieranie...';
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        document.getElementById('geolocation').textContent = `Szerokość: ${lat.toFixed(4)}, Długość: ${lon.toFixed(4)}`;
-                    },
-                    error => {
-                        let errorMessage = 'Błąd: ';
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED:
-                                errorMessage += 'Odmowa dostępu';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                errorMessage += 'Brak danych o lokalizacji';
-                                break;
-                            case error.TIMEOUT:
-                                errorMessage += 'Przekroczono czas oczekiwania';
-                                break;
-                            default:
-                                errorMessage += 'Nieznany błąd';
-                        }
-                        document.getElementById('geolocation').textContent = errorMessage;
-                    }
-                );
+        // Media Capabilities
+        if ('mediaCapabilities' in navigator) {
+            navigator.mediaCapabilities.decodingInfo({
+                type: 'file',
+                audio: { contentType: 'audio/mp3', channels: 2, bitrate: 132700, samplerate: 5200 }
+            }).then(info => {
+                document.getElementById('audioCapabilities').textContent = 
+                    info.supported ? 'Obsługiwane (' + (info.smooth ? 'Płynne' : 'Niepłynne') + ')' : 'Nieobsługiwane';
+            });
+            
+            navigator.mediaCapabilities.decodingInfo({
+                type: 'file',
+                video: { contentType: 'video/mp4', width: 1920, height: 1080, bitrate: 2646242, framerate: 25 }
+            }).then(info => {
+                document.getElementById('videoCapabilities').textContent = 
+                    info.supported ? 'Obsługiwane (' + (info.smooth ? 'Płynne' : 'Niepłynne') + ')' : 'Nieobsługiwane';
+            });
+        } else {
+            document.getElementById('audioCapabilities').textContent = 'API niedostępne';
+            document.getElementById('videoCapabilities').textContent = 'API niedostępne';
+        }
+        
+        // Ilość kamer i mikrofonów
+        if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+            navigator.mediaDevices.enumerateDevices().then(devices => {
+                const cameras = devices.filter(d => d.kind === 'videoinput').length;
+                const mics = devices.filter(d => d.kind === 'audioinput').length;
+                document.getElementById('cameraCount').textContent = cameras;
+                document.getElementById('microphoneCount').textContent = mics;
+            });
+        } else {
+            document.getElementById('cameraCount').textContent = 'API niedostępne';
+            document.getElementById('microphoneCount').textContent = 'API niedostępne';
+        }
+        
+        // Storage APIs
+        document.getElementById('localStorage').textContent = window.localStorage ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('sessionStorage').textContent = window.sessionStorage ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('indexedDB').textContent = window.indexedDB ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('webSQL').textContent = window.openDatabase ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('cacheAPI').textContent = 'caches' in window ? 'Dostępne' : 'Niedostępne';
+        
+        function checkStorageEstimate() {
+            if ('storage' in navigator && 'estimate' in navigator.storage) {
+                navigator.storage.estimate().then(estimate => {
+                    const quotaGB = (estimate.quota / 1024 / 1024 / 1024).toFixed(2);
+                    const usageGB = (estimate.usage / 1024 / 1024 / 1024).toFixed(2);
+                    document.getElementById('storageEstimate').textContent = 
+                        `Używane: ${usageGB} GB z ${quotaGB} GB (${((estimate.usage / estimate.quota) * 100).toFixed(1)}%)`;
+                    document.getElementById('storageEstimateItem').style.display = 'block';
+                });
             } else {
-                document.getElementById('geolocation').textContent = 'Geolokalizacja nie jest obsługiwana';
+                document.getElementById('storageEstimate').textContent = 'API niedostępne';
+                document.getElementById('storageEstimateItem').style.display = 'block';
             }
         }
         
-        // Aktualizuj czas co sekundę
-        setInterval(() => {
-            document.getElementById('localTime').textContent = new Date().toString();
-        }, 1000);
+        // Zaawansowane funkcje
+        document.getElementById('wakeLock').textContent = 'wakeLock' in navigator ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('vibrationAPI').textContent = 'vibrate' in navigator ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('bluetooth').textContent = 'bluetooth' in navigator ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('usb').textContent = 'usb' in navigator ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('nfc').textContent = 'NDEFReader' in window ? 'Dostępne' : 'Niedostępne';
+        document.getElementById('gamepad').textContent = 'getGamepads' in navigator ? 'Dostępne' : 'Niedostępne';
+        
+        // Dodatkowe funkcje można dodać tutaj
     </script>
 </body>
 </html>
